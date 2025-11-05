@@ -25,6 +25,13 @@ class _LoginPageState extends State<LoginPage> {
     final cardBg = Colors.white;
     final primaryGreen = const Color(0xFF2E8B57);
     final beige = const Color(0xFFF3EDE7);
+    const titleText = 'Clinimolelos';
+    const titleStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.w700);
+    final textPainter = TextPainter(
+      text: const TextSpan(text: titleText, style: titleStyle),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    final logoWidth = textPainter.width;
 
     return Scaffold(
       backgroundColor: bg,
@@ -38,11 +45,10 @@ class _LoginPageState extends State<LoginPage> {
                 Column(
                   children: [
                     Container(
-                      width: 72,
-                      height: 72,
+                      padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(40),
+                        borderRadius: BorderRadius.circular(8),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withOpacity(0.05),
@@ -51,25 +57,30 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ],
                       ),
-                      alignment: Alignment.center,
-                      child: const Text(
-                        'cm',
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFFBFA77A),
+                      child: SizedBox(
+                        width: logoWidth,
+                        child: Image.asset(
+                          'assets/CliniMolelos.png',
+                          width: logoWidth,
+                          fit: BoxFit.contain,
+                          errorBuilder: (context, error, stackTrace) => SizedBox(
+                            width: logoWidth,
+                            height: logoWidth * 0.4,
+                            child: Center(
+                              child: Icon(
+                                Icons.broken_image,
+                                color: Colors.redAccent,
+                                size: 20,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 12),
-                    const Text(
-                      'Clinimolelos',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                      ),
+                    Text(
+                      titleText,
+                      style: titleStyle,
                     ),
-                    const SizedBox(height: 6),
                     const Text(
                       'Aceda à sua conta',
                       style: TextStyle(color: Colors.black54, fontSize: 14),
