@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/CriarConta.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -63,24 +64,22 @@ class _LoginPageState extends State<LoginPage> {
                           'assets/CliniMolelos.png',
                           width: logoWidth,
                           fit: BoxFit.contain,
-                          errorBuilder: (context, error, stackTrace) => SizedBox(
-                            width: logoWidth,
-                            height: logoWidth * 0.4,
-                            child: Center(
-                              child: Icon(
-                                Icons.broken_image,
-                                color: Colors.redAccent,
-                                size: 20,
+                          errorBuilder: (context, error, stackTrace) =>
+                              SizedBox(
+                                width: logoWidth,
+                                height: logoWidth * 0.4,
+                                child: Center(
+                                  child: Icon(
+                                    Icons.broken_image,
+                                    color: Colors.redAccent,
+                                    size: 20,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
                         ),
                       ),
                     ),
-                    Text(
-                      titleText,
-                      style: titleStyle,
-                    ),
+                    Text(titleText, style: titleStyle),
                     const Text(
                       'Aceda à sua conta',
                       style: TextStyle(color: Colors.black54, fontSize: 14),
@@ -135,7 +134,6 @@ class _LoginPageState extends State<LoginPage> {
                             prefixIcon: Icon(Icons.person_outline),
                           ),
                         ),
-                        
                       ),
 
                       const SizedBox(height: 12),
@@ -183,9 +181,10 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             );
                           },
-                          child: const Text('Entrar',
-                          style: TextStyle(color: Colors.white),
-                        ),
+                          child: const Text(
+                            'Entrar',
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                       ),
 
@@ -209,8 +208,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             );
                           },
-                          child:
-                          const Text('Recuperar Palavra-passe'),
+                          child: const Text('Recuperar Palavra-passe'),
                         ),
                       ),
                     ],
@@ -221,8 +219,11 @@ class _LoginPageState extends State<LoginPage> {
 
                 GestureDetector(
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Criar Conta')),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const CreateAccount(),
+                      ),
                     );
                   },
                   child: const Text(
