@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/CriarConta.dart';
 import 'login_page.dart';
+import 'Menu.dart';
 
 void main() => runApp(const MyApp());
 
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
 			home: const LoginPage(),
         routes: {
     '/login': (context) => const LoginPage(),
-    '/CriarConta': (context) => const CreateAccount(),
+    '/criarconta': (context) => const CreateAccount(),
+    '/menu': (context) => const Menu(),
   },
 		);
 	}

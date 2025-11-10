@@ -8,7 +8,6 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-//DEFINIR OS TRIM DO TEXTO E RESTRIÇÕES
 class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -64,6 +63,9 @@ class _LoginPageState extends State<LoginPage> {
                           'assets/CliniMolelos.png',
                           width: logoWidth,
                           fit: BoxFit.contain,
+
+
+                          //quando a imagem não é carregada chama
                           errorBuilder: (context, error, stackTrace) =>
                               SizedBox(
                                 width: logoWidth,
@@ -76,6 +78,8 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                               ),
+
+
                         ),
                       ),
                     ),
@@ -90,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 24),
 
                 Container(
-                  width: double.infinity,
+                  width: double.infinity, //ocupa a maior largura (ou altura) possível
                   padding: const EdgeInsets.all(18),
                   decoration: BoxDecoration(
                     color: cardBg,
@@ -124,10 +128,12 @@ class _LoginPageState extends State<LoginPage> {
                           color: bg,
                           borderRadius: BorderRadius.circular(10),
                         ),
+
+                        //Email
                         child: TextField(
                           controller: _emailController,
-                          keyboardType: TextInputType.text,
-                          obscureText: true,
+                          keyboardType: TextInputType.emailAddress,
+                          obscureText: false,
                           decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: 'Nome de utilizador',
@@ -138,6 +144,7 @@ class _LoginPageState extends State<LoginPage> {
 
                       const SizedBox(height: 12),
 
+                      //password
                       Container(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 12,

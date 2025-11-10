@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'login_page.dart';
 
 class CreateAccount extends StatefulWidget {
@@ -132,6 +133,10 @@ class _CreateAccountState extends State<CreateAccount> {
                         hint: 'Telefone',
                         icon: Icons.phone,
                         keyboardType: TextInputType.phone,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(9),
+                        ],
                       ),
                       const SizedBox(height: 10),
 
@@ -184,11 +189,19 @@ class _CreateAccountState extends State<CreateAccount> {
                           ),
 
 
-                          //Validação e mostrar notificação
+                          // Validação e mostrar notificação
                           onPressed: () {
                             if (!_acceptedTerms) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(content: Text('Aceite os Termos para continuar.')),
+                              );
+                              return;
+                            }
+                            // Validação do telefone: apenas dígitos permitidos e exatamente 9 caracteres
+                            final phone = _telefone.text.trim(); 
+                            if (phone.isEmpty || phone.length != 9) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Introduza um número de telefone com 9 dígitos.')),
                               );
                               return;
                             }
@@ -203,7 +216,7 @@ class _CreateAccountState extends State<CreateAccount> {
                             );
                           },
 
-                          child: const Text('Criar Conta'),
+                          child: const Text('Criar Conta', style: TextStyle(color: Colors.white),),
                         ),
                       ),
 
@@ -237,6 +250,7 @@ class _CreateAccountState extends State<CreateAccount> {
     required String hint,
     required IconData icon,
     TextInputType keyboardType = TextInputType.text,
+    List<TextInputFormatter>? inputFormatters, //RESTRIÇÃO PARA APENAS NUM
   }) {
     final bg = const Color(0xFFFAF7F4);
     return Container(
@@ -245,6 +259,7 @@ class _CreateAccountState extends State<CreateAccount> {
       child: TextField(
         controller: controller,
         keyboardType: keyboardType,
+        inputFormatters: inputFormatters,
         decoration: InputDecoration(border: InputBorder.none, hintText: hint, prefixIcon: Icon(icon)),
       ),
     );
