@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'marcar_consulta.dart';
+//cor do amarelo/dourado é a87b05
 
 //criar classe
 class Menu extends StatefulWidget {
@@ -16,7 +18,7 @@ class _MenuState extends State<Menu> {
   Widget build(BuildContext context) {
     final bg = const Color(0xFFFAF7F4);
     final cardBg = Colors.white;
-    final primaryGreen = const Color(0xFF2E8B57);
+    final primaryGreen = const Color(0xFFA87B05);
 
 //página
     return Scaffold(
@@ -72,7 +74,7 @@ class _MenuState extends State<Menu> {
                   color: cardBg,
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
-                    BoxShadow(color: Colors.black.withOpacity(0.03), blurRadius: 8, offset: const Offset(0, 4)),
+                    BoxShadow(color: const Color.fromRGBO(0, 0, 0, 0.03), blurRadius: 8, offset: const Offset(0, 4)),
                   ],
                 ),
 
@@ -89,9 +91,22 @@ class _MenuState extends State<Menu> {
                       width: double.infinity, //ocupa a maior largura (ou altura) possível
                       height: 44,
                       child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(backgroundColor: primaryGreen, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                        onPressed: () {},
-                        child: const Text('Marcar Consulta'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: primaryGreen,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        ),
+                        onPressed: () {
+                          // debug: confirmar se o botão foi pressionado
+                          // abra a tela de agendamento
+                          debugPrint('Marcar Consulta pressed');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MarcarConsulta(),
+                            ),
+                          );
+                        },
+                        child: const Text('Marcar Consulta', style: TextStyle(color: Colors.white)),
                       ),
                     ),
                   ],
@@ -107,7 +122,7 @@ class _MenuState extends State<Menu> {
                 crossAxisCount: 2,
                 /*horizontal*/crossAxisSpacing: 12,
                 /*vertical*/mainAxisSpacing: 12,
-                childAspectRatio: 1.6, //definição de largura e altura
+                childAspectRatio: 0.78, //aumenta a altura dos cards para evitar overflow
 
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
@@ -119,7 +134,7 @@ class _MenuState extends State<Menu> {
                   _menuCard(icon: Icons.mail_outline, title: 'Contactar Clínica', subtitle: 'Envie uma mensagem'),
                 ],
               ),
-              const SizedBox(height: 18),
+              const SizedBox(height: 10),
 
               const Text('Atalhos Rápidos', style: TextStyle(fontWeight: FontWeight.w600)),
               const SizedBox(height: 8),
@@ -160,27 +175,42 @@ class _MenuState extends State<Menu> {
 //preenche o conteudo dos cartões grid desenvolve o container
   Widget _menuCard({required IconData icon, required String title, required String subtitle}) {
     return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 6, offset: const Offset(0,4))]),
-      child: Row(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        boxShadow: [
+          BoxShadow(color: const Color.fromRGBO(0, 0, 0, 0.02), blurRadius: 8, offset: const Offset(0, 4)),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(color: const Color(0xFFF3EDE7), borderRadius: BorderRadius.circular(10)),
-            child: Icon(icon, color: Colors.black54),
+            width: 36,
+            height: 36,
+            decoration: BoxDecoration(
+              color: const Color(0xFFF3EDE7),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Icon(icon, color: Colors.black54, size: 18),
           ),
-          const SizedBox(width: 10),
-
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
-                const SizedBox(height: 4),
-                Text(subtitle, style: const TextStyle(fontSize: 12, color: Colors.black54)),
-              ],
+          const SizedBox(height: 8),
+          Flexible(
+            child: Text(
+              title,
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Flexible(
+            child: Text(
+              subtitle,
+              style: const TextStyle(fontSize: 12, color: Colors.black54),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ],
@@ -194,7 +224,7 @@ class _MenuState extends State<Menu> {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 6, offset: const Offset(0,4))]),
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10), boxShadow: [BoxShadow(color: const Color.fromRGBO(0, 0, 0, 0.02), blurRadius: 6, offset: const Offset(0,4))]),
      
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

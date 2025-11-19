@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/CriarConta.dart';
+import 'criar_conta.dart';
 import 'login_page.dart';
-import 'Menu.dart';
-import 'MarcarConsulta.dart';
+import 'menu.dart';
+import 'marcar_consulta.dart';
 
 void main() => runApp(const MyApp());
 

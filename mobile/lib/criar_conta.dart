@@ -23,8 +23,8 @@ class _CreateAccountState extends State<CreateAccount> {
   void dispose() {
     /*"dispose" desliga o controlo e limpa memória, ao sair de uma página, 
     sem o "dispose" continua ocupando memória desnecessária, o dispose evita isso*/
-  _nomeCompleto.dispose();
-  _telefone.dispose();
+    _nomeCompleto.dispose();
+    _telefone.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -32,9 +32,9 @@ class _CreateAccountState extends State<CreateAccount> {
 
   @override
   Widget build(BuildContext context) {
-  final bg = const Color(0xFFFAF7F4);
-  final cardBg = Colors.white;
-  final primaryGreen = const Color(0xFF2E8B57);
+    final bg = const Color(0xFFFAF7F4);
+    final cardBg = Colors.white;
+    final primaryGreen = const Color(0xFFA87B05);
     const titleText = 'Criar Conta';
     const titleStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.w700);
 
@@ -62,7 +62,7 @@ class _CreateAccountState extends State<CreateAccount> {
                         borderRadius: BorderRadius.circular(8),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
+                            color: const Color.fromRGBO(0, 0, 0, 0.05),
                             blurRadius: 6,
                             offset: const Offset(0, 3),
                           ),
@@ -101,7 +101,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     borderRadius: BorderRadius.circular(14),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.03),
+                        color: const Color.fromRGBO(0, 0, 0, 0.03),
                         blurRadius: 8,
                         offset: const Offset(0, 4),
                       ),

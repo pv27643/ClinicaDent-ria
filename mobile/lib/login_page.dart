@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/CriarConta.dart';
-import 'package:flutter_application_1/Menu.dart';
+import 'criar_conta.dart';
+import 'menu.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final bg = const Color(0xFFFAF7F4);
     final cardBg = Colors.white;
-    final primaryGreen = const Color(0xFF2E8B57);
+    final primaryGreen = const Color(0xFFA87B05);
     final beige = const Color(0xFFF3EDE7);
     const titleText = 'Clinimolelos';
     const titleStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.w700);
@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(8),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
+                            color: const Color.fromRGBO(0, 0, 0, 0.05),
                             blurRadius: 6,
                             offset: const Offset(0, 3),
                           ),
@@ -102,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                     borderRadius: BorderRadius.circular(14),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.03),
+                        color: const Color.fromRGBO(0, 0, 0, 0.03),
                         blurRadius: 8,
                         offset: const Offset(0, 4),
                       ),
