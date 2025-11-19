@@ -91,7 +91,7 @@ class _CreateAccountState extends State<CreateAccount> {
 
                 const SizedBox(height: 18),
 
-                // Cards
+                // Cartões
                 Container(
                   width: double.infinity, //ocupa toda a largura disponivel do pai (Column)
                   padding: const EdgeInsets.all(18), //espaçamento interior

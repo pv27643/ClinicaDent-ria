@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/CriarConta.dart';
+import 'package:flutter_application_1/Menu.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -178,13 +179,10 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           onPressed: () {
-                            final user = _emailController.text;
-                            final masked = List.filled(user.length, '●').join();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  'Entrar: ${masked.isNotEmpty ? masked : '(vazio)'}',
-                                ),
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Menu(),
                               ),
                             );
                           },

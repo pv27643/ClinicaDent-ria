@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/CriarConta.dart';
 import 'login_page.dart';
 import 'Menu.dart';
+import 'MarcarConsulta.dart';
 
 void main() => runApp(const MyApp());
 
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
     '/login': (context) => const LoginPage(),
     '/criarconta': (context) => const CreateAccount(),
     '/menu': (context) => const Menu(),
+    '/Consultas': (context) => const MarcarConsulta(),
   },
 		);
 	}
