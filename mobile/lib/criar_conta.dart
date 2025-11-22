@@ -34,7 +34,7 @@ class _CreateAccountState extends State<CreateAccount> {
   Widget build(BuildContext context) {
     final bg = const Color(0xFFFAF7F4);
     final cardBg = Colors.white;
-    final primaryGreen = const Color(0xFFA87B05);
+    final primaryGold = const Color(0xFFA87B05);
     const titleText = 'Criar Conta';
     const titleStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.w700);
 
@@ -184,7 +184,7 @@ class _CreateAccountState extends State<CreateAccount> {
                         height: 46,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: primaryGreen,
+                            backgroundColor: primaryGold,
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                           ),
 
@@ -230,7 +230,7 @@ class _CreateAccountState extends State<CreateAccount> {
                             onTap: () => Navigator.of(context).pushReplacement(
                               MaterialPageRoute(builder: (_) => const LoginPage()),
                             ),
-                            child: Text('Voltar para Entrar', style: TextStyle(color: primaryGreen)),
+                            child: Text('Voltar para Entrar', style: TextStyle(color: primaryGold)),
                           ),
                         ],
                       ),

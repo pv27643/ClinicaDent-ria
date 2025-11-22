@@ -18,7 +18,7 @@ class _MenuState extends State<Menu> {
   Widget build(BuildContext context) {
     final bg = const Color(0xFFFAF7F4);
     final cardBg = Colors.white;
-    final primaryGreen = const Color(0xFFA87B05);
+    final primaryGold = const Color(0xFFA87B05);
 
 //página
     return Scaffold(
@@ -92,7 +92,7 @@ class _MenuState extends State<Menu> {
                       height: 44,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: primaryGreen,
+                          backgroundColor: primaryGold,
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                         ),
                         onPressed: () {
@@ -158,7 +158,7 @@ class _MenuState extends State<Menu> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: primaryGreen,
+        selectedItemColor: primaryGold,
         unselectedItemColor: Colors.black54,
         onTap: (i) => setState(() => _currentIndex = i),
         items: const [
