@@ -38,6 +38,8 @@ dependencies:
   # The following adds the Go Router package to your application.
   # Use with the GoRouter class for navigation.
   go_router: ^14.2.0
+  http: ^0.13.6
+  shared_preferences: ^2.2.0
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'criar_conta.dart';
 import 'menu.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,6 +15,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -178,14 +182,68 @@ class _LoginPageState extends State<LoginPage> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-                          onPressed: () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const Menu(),
-                              ),
-                            );
-                          },
+
+                          //SENHA OBRIGATÓRIA, validação email e senha
+                          onPressed: _isLoading
+                              ? null
+                              : () async {
+                                  final email = _emailController.text.trim();
+                                  final senha = _passwordController.text;
+                                  if (email.isEmpty || senha.isEmpty) { //se estiver vazio mostra a notificação
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text('Preencha email e palavra-passe'),
+                                      ),
+                                    );
+                                    return;
+                                  }
+
+                                  setState(() => _isLoading = true);
+
+                                  try {
+                                    final uri = Uri.parse('http://10.0.2.2:3001/auth/login');
+                                    final resp = await http.post(
+                                      uri,
+                                      headers: {'Content-Type': 'application/json'},
+                                      body: jsonEncode({'email': email, 'senha': senha}),
+                                    );
+
+                                    //Sucesso
+                                    if (resp.statusCode == 200) {
+                                      final body = jsonDecode(resp.body);
+                                      final token = body['token'];
+
+                                      // Guarda token 
+                                      final prefs = await SharedPreferences.getInstance();
+                                      await prefs.setString('auth_token', token);
+
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => const Menu(),
+                                        ),
+                                      );
+
+                                    } else {
+                                      String msg = 'Erro no login';
+
+                                      try {
+                                        final body = jsonDecode(resp.body);
+                                        msg = body['message'] ?? msg;
+                                      } 
+                                      catch (_) {}
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text(msg)),
+                                      );
+                                    }
+                                  } catch (e) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text('Erro de rede: $e')),
+                                    );
+                                  } finally {
+                                    if (mounted) setState(() => _isLoading = false);
+                                  }
+                                },
                           child: const Text(
                             'Entrar',
                             style: TextStyle(color: Colors.white),
