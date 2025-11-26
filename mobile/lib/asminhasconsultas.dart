@@ -68,20 +68,6 @@ class _AsMinhasConsultasState extends State<AsMinhasConsultas> {
     },
   ];
 
-  void _showMessage(String text) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(text)),
-    );
-  }
-
-  void _cancelAppointment(int index) {
-    _showMessage('Consulta "${_appointments[index]['name']}" cancelada');
-  }
-
-  void _rescheduleAppointment(int index) {
-    _showMessage('Reagendar "${_appointments[index]['name']}"');
-  }
-
   Color _statusBadgeColor(String status) {
     final s = status.toLowerCase();
     if (s.contains('confirm')) return const Color(0xFFDFF5E9); // verde claro
@@ -107,7 +93,7 @@ class _AsMinhasConsultasState extends State<AsMinhasConsultas> {
         color: cardBg,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.grey.shade200),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 6, offset: const Offset(0, 4))],
+        boxShadow: [BoxShadow(color: const Color(0x05000000), blurRadius: 6, offset: const Offset(0, 4))],
       ),
       child: Padding(
         padding: const EdgeInsets.all(10),
@@ -183,7 +169,6 @@ class _AsMinhasConsultasState extends State<AsMinhasConsultas> {
   Widget build(BuildContext context) {
     final bg = const Color(0xFFFAF7F4);
     final cardBg = Colors.white;
-    final primaryGold = const Color(0xFFA87B05);
 
     // separar secções
     final upcoming = _appointments.where((a) => a['section'] == 'upcoming').toList();
@@ -305,7 +290,7 @@ class _AsMinhasConsultasState extends State<AsMinhasConsultas> {
               color: Colors.white,
               borderRadius: BorderRadius.circular(28),
               boxShadow: [
-                BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 12, offset: const Offset(0, 6)),
+                BoxShadow(color: const Color(0x0F000000), blurRadius: 12, offset: const Offset(0, 6)),
               ],
             ),
             child: Row(

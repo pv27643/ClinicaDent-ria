@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class CreateAccount extends StatefulWidget {
-  const CreateAccount({Key? key}) : super(key: key);
+  const CreateAccount({super.key});
 
   @override
   State<CreateAccount> createState() => _CreateAccountState();
@@ -30,9 +29,8 @@ class _CreateAccountState extends State<CreateAccount> {
 
   @override
   Widget build(BuildContext context) {
-    final bg = Theme.of(context).colorScheme.background;
+    final bg = Theme.of(context).colorScheme.surface;
     final cardBg = Theme.of(context).colorScheme.surface;
-    final primary = Theme.of(context).colorScheme.primary;
 
     return Scaffold(
       backgroundColor: bg,
