@@ -3,6 +3,7 @@ import 'criar_conta.dart';
 import 'login_page.dart';
 import 'menu.dart';
 import 'marcar_consulta.dart';
+import 'asminhasconsultas.dart';
 
 void main() => runApp(const MyApp());
 
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
     '/criarconta': (context) => const CreateAccount(),
     '/menu': (context) => const Menu(),
     '/Consultas': (context) => const MarcarConsulta(),
+    '/asminhasconsultas': (context) => const AsMinhasConsultas(),
   },
 		);
 	}
