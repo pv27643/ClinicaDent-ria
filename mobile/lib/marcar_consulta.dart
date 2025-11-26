@@ -192,37 +192,42 @@ class _MarcarConsulta extends State<MarcarConsulta> {
                         Expanded(
                           child: GestureDetector(
                             onTap: () {},
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(color: const Color.fromRGBO(0, 0, 0, 0.06)),
-                              ),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width: 36,
-                                    height: 36,
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xFFDFF7EE),
-                                      borderRadius: BorderRadius.circular(10),
+                            child: AspectRatio(
+                              aspectRatio: 1,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(color: const Color.fromRGBO(0, 0, 0, 0.06)),
+                                ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 44,
+                                      height: 44,
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xFFDFF7EE),
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: const Center(child: Icon(Icons.medical_services_outlined, color: Color(0xFFA87B05), size: 22)),
                                     ),
-                                    child: const Icon(Icons.medical_services_outlined, color: Color(0xFFA87B05), size: 20),
-                                  ),
-                                  const SizedBox(width: 12),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: const [
-                                        Text('Especialidade', style: TextStyle(fontSize: 12, color: Colors.black54)),
-                                        SizedBox(height: 2),
-                                        Text('Higiene Oral', style: TextStyle(fontWeight: FontWeight.w600)),
-                                      ],
+                                    const SizedBox(width: 14),
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: const [
+                                          Text('Especialidade', style: TextStyle(fontSize: 13, color: Colors.black54), maxLines: 1, overflow: TextOverflow.ellipsis),
+                                          SizedBox(height: 4),
+                                          Text('Higiene Oral', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14), maxLines: 2, overflow: TextOverflow.ellipsis),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  const Icon(Icons.keyboard_arrow_down, color: Colors.black54),
-                                ],
+                                    const Icon(Icons.keyboard_arrow_down, color: Colors.black54),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -231,37 +236,42 @@ class _MarcarConsulta extends State<MarcarConsulta> {
                         Expanded(
                           child: GestureDetector(
                             onTap: () {},
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(color: const Color.fromRGBO(0, 0, 0, 0.06)),
-                              ),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width: 36,
-                                    height: 36,
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xFFF3F6FF),
-                                      borderRadius: BorderRadius.circular(10),
+                            child: AspectRatio(
+                              aspectRatio: 1,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(color: const Color.fromRGBO(0, 0, 0, 0.06)),
+                                ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 44,
+                                      height: 44,
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xFFF3F6FF),
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: const Center(child: Icon(Icons.person_outline, color: Color(0xFF334155), size: 22)),
                                     ),
-                                    child: const Icon(Icons.person_outline, color: Color(0xFF334155), size: 20),
-                                  ),
-                                  const SizedBox(width: 12),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: const [
-                                        Text('Médico', style: TextStyle(fontSize: 12, color: Colors.black54)),
-                                        SizedBox(height: 2),
-                                        Text('Dra. Sofia Lima', style: TextStyle(fontWeight: FontWeight.w600)),
-                                      ],
+                                    const SizedBox(width: 14),
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: const [
+                                          Text('Médico', style: TextStyle(fontSize: 13, color: Colors.black54), maxLines: 1, overflow: TextOverflow.ellipsis),
+                                          SizedBox(height: 4),
+                                          Text('Dra. Sofia Lima', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14), maxLines: 2, overflow: TextOverflow.ellipsis),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  const Icon(Icons.keyboard_arrow_down, color: Colors.black54),
-                                ],
+                                    const Icon(Icons.keyboard_arrow_down, color: Colors.black54),
+                                  ],
+                                ),
                               ),
                             ),
                           ),

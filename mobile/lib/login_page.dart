@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'criar_conta.dart';
 import 'menu.dart';
-// Removed network and local storage dependencies to keep login local
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
