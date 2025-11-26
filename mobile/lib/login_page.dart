@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'criar_conta.dart';
 import 'menu.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
+// Removed network and local storage dependencies to keep login local
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -189,7 +187,7 @@ class _LoginPageState extends State<LoginPage> {
                               : () async {
                                   final email = _emailController.text.trim();
                                   final senha = _passwordController.text;
-                                  if (email.isEmpty || senha.isEmpty) { //se estiver vazio mostra a notificação
+                                  if (email.isEmpty || senha.isEmpty) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                         content: Text('Preencha email e palavra-passe'),
@@ -198,51 +196,19 @@ class _LoginPageState extends State<LoginPage> {
                                     return;
                                   }
 
+                                  // Simulate a short local validation delay
                                   setState(() => _isLoading = true);
+                                  await Future.delayed(const Duration(milliseconds: 300));
 
-                                  try {
-                                    final uri = Uri.parse('http://10.0.2.2:3001/auth/login');
-                                    final resp = await http.post(
-                                      uri,
-                                      headers: {'Content-Type': 'application/json'},
-                                      body: jsonEncode({'email': email, 'senha': senha}),
-                                    );
-
-                                    //Sucesso
-                                    if (resp.statusCode == 200) {
-                                      final body = jsonDecode(resp.body);
-                                      final token = body['token'];
-
-                                      // Guarda token 
-                                      final prefs = await SharedPreferences.getInstance();
-                                      await prefs.setString('auth_token', token);
-
-                                      Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => const Menu(),
-                                        ),
-                                      );
-
-                                    } else {
-                                      String msg = 'Erro no login';
-
-                                      try {
-                                        final body = jsonDecode(resp.body);
-                                        msg = body['message'] ?? msg;
-                                      } 
-                                      catch (_) {}
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text(msg)),
-                                      );
-                                    }
-                                  } catch (e) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text('Erro de rede: $e')),
-                                    );
-                                  } finally {
-                                    if (mounted) setState(() => _isLoading = false);
-                                  }
+                                  // For now, accept any non-empty credentials and navigate
+                                  if (!mounted) return;
+                                  setState(() => _isLoading = false);
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const Menu(),
+                                    ),
+                                  );
                                 },
                           child: const Text(
                             'Entrar',
