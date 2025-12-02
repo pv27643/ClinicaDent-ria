@@ -39,6 +39,7 @@ dependencies:
   # Use with the GoRouter class for navigation.
   go_router: ^14.2.0
   http: ^0.13.6
+  flutter_dotenv: ^5.0.2
   shared_preferences: ^2.2.0
 
 dev_dependencies:

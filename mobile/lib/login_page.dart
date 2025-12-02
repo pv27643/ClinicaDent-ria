@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'criar_conta.dart';
 import 'menu.dart';
+import 'services/api_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -187,27 +189,26 @@ class _LoginPageState extends State<LoginPage> {
                                   final email = _emailController.text.trim();
                                   final senha = _passwordController.text;
                                   if (email.isEmpty || senha.isEmpty) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text('Preencha email e palavra-passe'),
-                                      ),
-                                    );
+                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Preencha email e palavra-passe')));
                                     return;
                                   }
 
-                                  // Simulate a short local validation delay
                                   setState(() => _isLoading = true);
-                                  await Future.delayed(const Duration(milliseconds: 300));
-
-                                  // For now, accept any non-empty credentials and navigate
-                                  if (!mounted) return;
-                                  setState(() => _isLoading = false);
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const Menu(),
-                                    ),
-                                  );
+                                  try {
+                                    final resp = await ApiService.login(email, senha);
+                                    final token = resp['token'] as String?;
+                                    if (token != null) {
+                                      final prefs = await SharedPreferences.getInstance();
+                                      await prefs.setString('auth_token', token);
+                                    }
+                                    if (!mounted) return;
+                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Menu()));
+                                  } catch (err) {
+                                    if (!mounted) return;
+                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Erro: ${err.toString()}')));
+                                  } finally {
+                                    if (mounted) setState(() => _isLoading = false);
+                                  }
                                 },
                           child: const Text(
                             'Entrar',
