@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'marcar_consulta.dart';
+import 'declaracao.dart';
 //cor do amarelo/dourado é a87b05
 
 //criar classe
@@ -136,7 +137,17 @@ class _MenuState extends State<Menu> {
                   ),
                   _menuCard(icon: Icons.medical_services_outlined, title: 'Planos de Tratamento', subtitle: 'Acompanhe etapas'),
                   _menuCard(icon: Icons.people_outline, title: 'Dependentes', subtitle: 'Gerir familiares'),
-                  _menuCard(icon: Icons.description_outlined, title: 'Declarações/Docs', subtitle: 'Descarregar comprov.'),
+                  _menuCard(
+                    icon: Icons.description_outlined, 
+                    title: 'Declarações/Docs', 
+                    subtitle: 'Descarregar comprov.',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const Declaracao()),
+                      );
+                    },
+                  ),
                   _menuCard(icon: Icons.person_outline, title: 'Perfil', subtitle: 'Dados e segurança'),
                   _menuCard(icon: Icons.mail_outline, title: 'Contactar Clínica', subtitle: 'Envie uma mensagem'),
                 ],
