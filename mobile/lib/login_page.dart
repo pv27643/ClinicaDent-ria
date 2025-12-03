@@ -67,23 +67,17 @@ class _LoginPageState extends State<LoginPage> {
                           'assets/CliniMolelos.png',
                           width: logoWidth,
                           fit: BoxFit.contain,
-
-
-                          //quando a imagem não é carregada chama
-                          errorBuilder: (context, error, stackTrace) =>
-                              SizedBox(
-                                width: logoWidth,
-                                height: logoWidth * 0.4,
-                                child: Center(
-                                  child: Icon(
-                                    Icons.broken_image,
-                                    color: Colors.redAccent,
-                                    size: 20,
-                                  ),
-                                ),
+                          errorBuilder: (context, error, stackTrace) => SizedBox(
+                            width: logoWidth,
+                            height: logoWidth * 0.4,
+                            child: Center(
+                              child: Icon(
+                                Icons.broken_image,
+                                color: Colors.redAccent,
+                                size: 20,
                               ),
-
-
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -98,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 24),
 
                 Container(
-                  width: double.infinity, //ocupa a maior largura (ou altura) possível
+                  width: double.infinity,
                   padding: const EdgeInsets.all(18),
                   decoration: BoxDecoration(
                     color: cardBg,
@@ -123,37 +117,30 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       const SizedBox(height: 12),
 
+                      // Email
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 6,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                         decoration: BoxDecoration(
                           color: bg,
                           borderRadius: BorderRadius.circular(10),
                         ),
-
-                        //Email
                         child: TextField(
                           controller: _emailController,
                           keyboardType: TextInputType.emailAddress,
                           obscureText: false,
                           decoration: const InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'Nome de utilizador',
-                            prefixIcon: Icon(Icons.person_outline),
+                            hintText: 'Email',
+                            prefixIcon: Icon(Icons.email_outlined),
                           ),
                         ),
                       ),
 
                       const SizedBox(height: 12),
 
-                      //password
+                      // password
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 6,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                         decoration: BoxDecoration(
                           color: bg,
                           borderRadius: BorderRadius.circular(10),
@@ -181,8 +168,6 @@ class _LoginPageState extends State<LoginPage> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-
-                          //SENHA OBRIGATÓRIA, validação email e senha
                           onPressed: _isLoading
                               ? null
                               : () async {
@@ -194,26 +179,35 @@ class _LoginPageState extends State<LoginPage> {
                                   }
 
                                   setState(() => _isLoading = true);
+                                  // debug print
+                                  // ignore: avoid_print
+                                  print('Login pressed: email=$email');
                                   try {
                                     final resp = await ApiService.login(email, senha);
-                                    final token = resp['token'] as String?;
-                                    if (token != null) {
+                                    // show response for debugging
+                                    // ignore: avoid_print
+                                    print('Login response: $resp');
+                                    final access = resp['accessToken'] as String? ?? resp['token'] as String?;
+                                    if (access != null) {
                                       final prefs = await SharedPreferences.getInstance();
-                                      await prefs.setString('auth_token', token);
+                                      await prefs.setString('auth_token', access);
                                     }
                                     if (!mounted) return;
                                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Menu()));
                                   } catch (err) {
                                     if (!mounted) return;
-                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Erro: ${err.toString()}')));
+                                    final msg = err.toString();
+                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Erro: $msg')));
                                   } finally {
                                     if (mounted) setState(() => _isLoading = false);
                                   }
                                 },
-                          child: const Text(
-                            'Entrar',
-                            style: TextStyle(color: Colors.white),
-                          ),
+                          child: _isLoading
+                              ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+                              : const Text(
+                                  'Entrar',
+                                  style: TextStyle(color: Colors.white),
+                                ),
                         ),
                       ),
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'criar_conta.dart';
 import 'login_page.dart';
 import 'menu.dart';
@@ -8,7 +8,13 @@ import 'asminhasconsultas.dart';
 
 Future<void> main() async {
 	WidgetsFlutterBinding.ensureInitialized();
-	await dotenv.load(fileName: ".env");
+	// Load environment variables from .env (if present)
+	try {
+		await dotenv.load(fileName: ".env");
+	} catch (_) {
+		// ignore: avoid_print
+		print('No .env file found or error loading env');
+	}
 	runApp(const MyApp());
 }
 

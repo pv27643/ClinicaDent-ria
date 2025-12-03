@@ -324,7 +324,8 @@ class _AsMinhasConsultasState extends State<AsMinhasConsultas> {
           if (!mounted) return;
           if (index == 0) Navigator.pushReplacementNamed(context, '/menu');
           if (index == 1) Navigator.pushReplacementNamed(context, '/asminhasconsultas');
-          // index 2/3: implementar rotas se existirem (ex: '/planos', '/perfil')
+          if (index == 2) Navigator.pushReplacementNamed(context, '/plano_tratamento');
+          if (index == 3) Navigator.pushReplacementNamed(context, '/perfil');
         },
         behavior: HitTestBehavior.opaque,
         child: Column(

@@ -16,44 +16,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-function genToken(size = 48) {
-  return crypto.randomBytes(size).toString('hex');
-}
-
-async function createAccessToken(user) {
-  return jwt.sign({ id: user.id, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: ACCESS_TOKEN_EXPIRES });
-}
-
-async function saveRefreshToken(token, userId, expiresAt) {
-  const q = 'INSERT INTO refresh_tokens(token, user_id, expires_at) VALUES($1,$2,$3)';
-  await db.query(q, [token, userId, expiresAt]);
-}
-
-async function removeRefreshToken(token) {
-  const q = 'DELETE FROM refresh_tokens WHERE token=$1';
-  await db.query(q, [token]);
-}
-
-async function findRefreshToken(token) {
-  const q = 'SELECT token, user_id, expires_at FROM refresh_tokens WHERE token=$1 LIMIT 1';
-  const r = await db.query(q, [token]);
-  return r.rows[0];
-}
-
-function authMiddleware(req, res, next) {
-  const auth = req.headers.authorization;
-  if (!auth) return res.status(401).json({ message: 'Token não fornecido' });
-  const parts = auth.split(' ');
-  if (parts.length !== 2) return res.status(401).json({ message: 'Header Authorization inválido' });
-  const token = parts[1];
-  try {
-    const payload = jwt.verify(token, JWT_SECRET);
-    req.user = payload;
-    next();
-  } catch (err) {
-    return res.status(401).json({ message: 'Token inválido' });
-  }
-}
+const tokenService = require('./tokenService')(db, JWT_SECRET, ACCESS_TOKEN_EXPIRES);
+const { genToken, createAccessToken, saveRefreshToken, removeRefreshToken, findRefreshToken } = tokenService;
+const authMiddleware = require('./authMiddleware')(JWT_SECRET);
 
 // --- AUTENTICAÇÃO ---
 

@@ -3,15 +3,23 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ApiService {
-  static final String _base = dotenv.env['API_BASE_URL'] ?? 'http://10.0.2.2:3001';
+  // Use a getter so dotenv is read at runtime (after dotenv.load in main)
+  static String get _base {
+    try {
+      return dotenv.env['API_BASE_URL'] ?? 'http://10.0.2.2:3001';
+    } catch (_) {
+      // dotenv not initialized yet (hot-reload or other). Use localhost emulator default.
+      return 'http://10.0.2.2:3001';
+    }
+  }
 
   static Uri _uri(String path) => Uri.parse('$_base$path');
 
   static Future<Map<String, dynamic>> login(String email, String senha) async {
     final res = await http.post(
-      _uri('/auth/login'),
+      _uri('/api/auth/login'),
       headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({'email': email, 'senha': senha}),
+      body: jsonEncode({'email': email, 'password': senha}),
     );
     if (res.statusCode >= 200 && res.statusCode < 300) {
       return jsonDecode(res.body) as Map<String, dynamic>;
