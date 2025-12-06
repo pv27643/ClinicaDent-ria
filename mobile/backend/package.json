@@ -1,20 +1,16 @@
 {
-  "name": "clinicadentria-backend",
+  "name": "backend",
   "version": "1.0.0",
-  "private": true,
+  "description": "",
+  "main": "startServer.js",
   "scripts": {
-    "start:json": "json-server --watch db.json --port 3000",
-    "start:api": "node api.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.0",
-    "pg": "^8.11.0",
-    "dotenv": "^16.3.0",
-    "bcryptjs": "^2.4.3"
-  },
-  "devDependencies": {
-    "json-server": "^0.17.3"
+    "pg": "^8.16.3"
   }
 }
