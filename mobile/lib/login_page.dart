@@ -4,6 +4,7 @@ import 'criar_conta.dart';
 import 'menu.dart';
 import 'services/api_service.dart';
 
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -25,6 +26,11 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    print("App started running");
+  
+
+  
     final bg = const Color(0xFFFAF7F4);
     final cardBg = Colors.white;
     final primaryGold = const Color(0xFFA87B05);
@@ -179,23 +185,19 @@ class _LoginPageState extends State<LoginPage> {
                                   }
 
                                   setState(() => _isLoading = true);
-                                  // debug print
-                                  // ignore: avoid_print
                                   print('Login pressed: email=$email');
                                   try {
                                     final resp = await ApiService.login(email, senha);
-                                    // show response for debugging
-                                    // ignore: avoid_print
                                     print('Login response: $resp');
                                     final access = resp['accessToken'] as String? ?? resp['token'] as String?;
                                     if (access != null) {
                                       final prefs = await SharedPreferences.getInstance();
                                       await prefs.setString('auth_token', access);
                                     }
-                                    if (!mounted) return;
+                                    if (!context.mounted) return;
                                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Menu()));
                                   } catch (err) {
-                                    if (!mounted) return;
+                                    if (!context.mounted) return;
                                     final msg = err.toString();
                                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Erro: $msg')));
                                   } finally {

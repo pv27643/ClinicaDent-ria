@@ -14,13 +14,13 @@ class _MarcarConsulta extends State<MarcarConsulta> {
   String? _selectedInsurance;
 
   final List<Map<String, String>> _dateOptions = [
-    {'weekday': 'Seg', 'day': '12'},
-    {'weekday': 'Ter', 'day': '13'},
-    {'weekday': 'Qua', 'day': '14'},
-    {'weekday': 'Qui', 'day': '15'},
-    {'weekday': 'Sex', 'day': '16'},
-    {'weekday': 'Sáb', 'day': '17'},
-    {'weekday': 'Dom', 'day': '18'},
+    {'weekday': 'Seg', 'day': '12', 'month': 'Nov'},
+    {'weekday': 'Ter', 'day': '13', 'month': 'Nov'},
+    {'weekday': 'Qua', 'day': '14', 'month': 'Nov'},
+    {'weekday': 'Qui', 'day': '15', 'month': 'Nov'},
+    {'weekday': 'Sex', 'day': '16', 'month': 'Nov'},
+    {'weekday': 'Sáb', 'day': '17', 'month': 'Nov'},
+    {'weekday': 'Dom', 'day': '18', 'month': 'Nov'},
   ];
 
   final List<Map<String, String>> _timeSlots = [
@@ -318,31 +318,45 @@ class _MarcarConsulta extends State<MarcarConsulta> {
 
                     // dias
                     SizedBox(
-                      height: 80,
+                      height: 92,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: _dateOptions.length,
                         itemBuilder: (ctx, i) {
                           final d = _dateOptions[i];
                           final selected = _selectedDateIndex == i;
+                          // availability mock: highlight middle as available
+                          final availColor = (i % 3 == 0) ? const Color(0xFFDFF5E9) : (i % 3 == 1) ? const Color(0xFFFFF4E0) : const Color(0xFFF3F3F3);
                           return Padding(
-                            padding: EdgeInsets.only(right: 8),
+                            padding: const EdgeInsets.only(right: 8),
                             child: GestureDetector(
                               onTap: () => setState(() => _selectedDateIndex = i),
                               child: Container(
-                                width: 64,
+                                width: 72,
                                 decoration: BoxDecoration(
                                   color: selected ? const Color(0xFFF3EDE7) : Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(12),
                                   border: Border.all(color: selected ? const Color(0xFFD7B77D) : const Color(0xFFF0ECE8)),
                                 ),
-                                padding: const EdgeInsets.symmetric(vertical: 8),
+                                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(d['weekday'] ?? '', style: const TextStyle(fontSize: 12, color: Colors.black54)),
-                                    const SizedBox(height: 6),
-                                    Text(d['day'] ?? '', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(d['weekday'] ?? '', style: const TextStyle(fontSize: 12, color: Colors.black54)),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                                      decoration: BoxDecoration(
+                                        color: availColor,
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Text(d['day'] ?? '', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700)),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -378,16 +392,34 @@ class _MarcarConsulta extends State<MarcarConsulta> {
                         Color bgColor;
                         Color textColor = Colors.black87;
                         Border? border;
-                        if (status == 'available') { bgColor = const Color(0xFFDFF5E9); textColor = Colors.green.shade800; border = isSelected ? Border.all(color: Colors.green.shade800, width: 2) : null; }
-                        else if (status == 'limited') { bgColor = const Color(0xFFFFF4E0); textColor = Colors.orange.shade800; }
-                        else { bgColor = const Color(0xFFF3F3F3); textColor = Colors.black54; }
+                        if (status == 'available') {
+                          bgColor = const Color(0xFFDFF5E9);
+                          textColor = Colors.green.shade800;
+                          border = isSelected ? Border.all(color: Colors.green.shade800, width: 2) : null;
+                        } else if (status == 'limited') {
+                          bgColor = const Color(0xFFFFF4E0);
+                          textColor = Colors.orange.shade800;
+                          border = isSelected ? Border.all(color: Colors.orange.shade800, width: 2) : null;
+                        } else {
+                          bgColor = const Color(0xFFF3F3F3);
+                          textColor = Colors.black54;
+                        }
+
+                        // selected gets white bg with colored border like screenshot
+                        final displayBg = isSelected ? Colors.white : bgColor;
+                        final displayTextColor = isSelected ? (status == 'available' ? Colors.green.shade800 : (status == 'limited' ? Colors.orange.shade800 : textColor)) : textColor;
+
                         return GestureDetector(
                           onTap: status == 'soldout' ? null : () => setState(() => _selectedTime = time),
                           child: Container(
-                            width: 100,
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            decoration: BoxDecoration(color: bgColor, borderRadius: BorderRadius.circular(10), border: border ?? Border.all(color: Colors.transparent)),
-                            child: Center(child: Text(time, style: TextStyle(color: textColor, fontWeight: FontWeight.w700))),
+                            width: 92,
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            decoration: BoxDecoration(
+                              color: displayBg,
+                              borderRadius: BorderRadius.circular(12),
+                              border: border ?? Border.all(color: Colors.transparent),
+                            ),
+                            child: Center(child: Text(time, style: TextStyle(color: displayTextColor, fontWeight: FontWeight.w700))),
                           ),
                         );
                       }).toList(),
@@ -441,7 +473,7 @@ class _MarcarConsulta extends State<MarcarConsulta> {
                           const SizedBox(width: 10),
                           Expanded(
                             child: Text(
-                              '${_dateOptions[_selectedDateIndex]['day']} ${_dateOptions[_selectedDateIndex]['weekday']} • ${_selectedTime ?? '—'} • Higiene Oral • Dra. Sofia',
+                              '${_dateOptions[_selectedDateIndex]['day']} ${_dateOptions[_selectedDateIndex]['month']} • ${_selectedTime ?? '—'} • Higiene Oral • Dra. Sofia',
                               style: const TextStyle(fontSize: 14),
                             ),
                           ),
@@ -499,10 +531,12 @@ class _MarcarConsulta extends State<MarcarConsulta> {
 
   Widget _insuranceButton(String label, IconData icon) {
     final selected = _selectedInsurance == label;
+    final double availableWidth = MediaQuery.of(context).size.width;
+    final double itemWidth = (availableWidth - 32 - 12) / 2; // padding 16 left/right + spacing
     return GestureDetector(
       onTap: () => setState(() => _selectedInsurance = label),
       child: Container(
-        width: 160,
+        width: itemWidth,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         decoration: BoxDecoration(
           color: selected ? const Color(0xFFF6F6F6) : Colors.white,
