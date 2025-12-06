@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'criar_conta.dart';
 import 'login_page.dart';
 import 'menu.dart';
 import 'marcar_consulta.dart';
@@ -31,7 +30,6 @@ class MyApp extends StatelessWidget {
 			home: const LoginPage(),
         routes: {
     '/login': (context) => const LoginPage(),
-    '/criarconta': (context) => const CreateAccount(),
     '/menu': (context) => const Menu(),
     '/Consultas': (context) => const MarcarConsulta(),
     '/asminhasconsultas': (context) => const AsMinhasConsultas(),

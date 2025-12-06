@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'criar_conta.dart';
 import 'menu.dart';
 import 'services/api_service.dart';
 
@@ -242,20 +241,6 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 28),
 
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const CreateAccount(),
-                      ),
-                    );
-                  },
-                  child: const Text(
-                    'Ainda não tens conta? Criar Conta',
-                    style: TextStyle(color: Colors.black54),
-                  ),
-                ),
               ],
             ),
           ),
