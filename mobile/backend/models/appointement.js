@@ -15,3 +15,8 @@ exports.getFuture = async () => {
   const rows = await sequelize.query("SELECT * FROM consulta WHERE status = 'confirmada'", { type: QueryTypes.SELECT });
   return rows;
 };
+
+exports.create = async (data) => {
+  data.status = 'pendente';
+  return { status: data.status };
+};
