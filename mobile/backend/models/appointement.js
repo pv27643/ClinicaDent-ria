@@ -1,16 +1,17 @@
-const pool = require('./db_pg');
+const { sequelize } = require('./index');
+const { QueryTypes } = require('sequelize');
 
 exports.getAll = async () => {
-  const result = await pool.query('SELECT * FROM consulta');
-  return result.rows;
+  const rows = await sequelize.query('SELECT * FROM consulta', { type: QueryTypes.SELECT });
+  return rows;
 };
 
 exports.getPast = async () => {
-  const result = await pool.query("SELECT * FROM consulta WHERE status = 'realizada'");
-  return result.rows;
+  const rows = await sequelize.query("SELECT * FROM consulta WHERE status = 'realizada'", { type: QueryTypes.SELECT });
+  return rows;
 };
 
 exports.getFuture = async () => {
-  const result = await pool.query("SELECT * FROM consulta WHERE status = 'confirmada'");
-  return result.rows;
+  const rows = await sequelize.query("SELECT * FROM consulta WHERE status = 'confirmada'", { type: QueryTypes.SELECT });
+  return rows;
 };
