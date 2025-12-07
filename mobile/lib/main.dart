@@ -11,7 +11,7 @@ Future<void> main() async {
 	try {
 		await dotenv.load(fileName: ".env");
 	} catch (_) {
-		print('No .env file found or error loading env');
+		debugPrint('No .env file found or error loading env');
 	}
 	runApp(const MyApp());
 }

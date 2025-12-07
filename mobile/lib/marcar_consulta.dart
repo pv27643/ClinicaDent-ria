@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'widgets/app_bottom_nav.dart';
 
 class MarcarConsulta extends StatefulWidget {
   const MarcarConsulta({super.key});
@@ -8,7 +9,7 @@ class MarcarConsulta extends StatefulWidget {
 }
 
 class _MarcarConsulta extends State<MarcarConsulta> {
-  int _currentIndex = 1;
+  int _currentIndex = -1;
   int _selectedDateIndex = 2; // exemplo: 0..6 (o dia 14 é o index 2)
   String? _selectedTime;
   String? _selectedInsurance;
@@ -484,7 +485,7 @@ class _MarcarConsulta extends State<MarcarConsulta> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF2E8B57), padding: const EdgeInsets.symmetric(vertical: 14), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                        style: ElevatedButton.styleFrom(backgroundColor: primaryGold, padding: const EdgeInsets.symmetric(vertical: 14), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                         onPressed: (_selectedTime != null) ? () {
                           // ação de confirmação simples
                           showDialog(context: context, builder: (_) => AlertDialog(title: const Text('Confirmação'), content: const Text('Marcação confirmada.'), actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text('OK'))]));
@@ -502,30 +503,7 @@ class _MarcarConsulta extends State<MarcarConsulta> {
           ),
         ),
       ),
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(28),
-              boxShadow: [
-                BoxShadow(color: const Color(0x0F000000), blurRadius: 12, offset: const Offset(0, 6)),
-              ],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _navItem(icon: Icons.home_outlined, label: 'Início', index: 0),
-                _navItem(icon: Icons.calendar_month_outlined, label: 'Consultas', index: 1),
-                _navItem(icon: Icons.folder_open_outlined, label: 'Planos', index: 2),
-                _navItem(icon: Icons.person_outline, label: 'Perfil', index: 3),
-              ],
-            ),
-          ),
-        ),
-      ),
+      bottomNavigationBar: AppBottomNav(selectedIndex: _currentIndex),
     );
   }
 
@@ -555,34 +533,4 @@ class _MarcarConsulta extends State<MarcarConsulta> {
     );
   }
 
-  Widget _navItem({required IconData icon, required String label, required int index}) {
-    final primaryGold = const Color(0xFFA87B05);
-    final isSelected = _currentIndex == index;
-    return Expanded(
-      child: GestureDetector(
-        onTap: () {
-          setState(() => _currentIndex = index);
-          if (!mounted) return;
-          if (index == 0) Navigator.pushReplacementNamed(context, '/menu');
-          if (index == 1) Navigator.pushReplacementNamed(context, '/asminhasconsultas');
-        },
-        behavior: HitTestBehavior.opaque,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: isSelected ? const Color(0xFFF3EDE7) : Colors.transparent,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Icon(icon, size: 20, color: isSelected ? primaryGold : Colors.black54),
-            ),
-            const SizedBox(height: 6),
-            Text(label, style: TextStyle(fontSize: 12, color: isSelected ? primaryGold : Colors.black54)),
-          ],
-        ),
-      ),
-    );
-  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'widgets/app_bottom_nav.dart';
 
 class AsMinhasConsultas extends StatefulWidget {
   const AsMinhasConsultas({super.key});
@@ -8,7 +9,7 @@ class AsMinhasConsultas extends StatefulWidget {
 }
 
 class _AsMinhasConsultasState extends State<AsMinhasConsultas> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
   int _selectedTab = 0; // 0 = Futuras, 1 = Passadas
 
   // Dados de exemplo organizados por secção (upcoming / history)
@@ -264,7 +265,6 @@ class _AsMinhasConsultasState extends State<AsMinhasConsultas> {
                 return listToShow.asMap().entries.map<Widget>((entry) {
                   final i = entry.key;
                   final appt = entry.value;
-                  // index global se necessário: i + ( _selectedTab==0 ? 0 : upcoming.length )
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _appointmentCard(appt, i + (_selectedTab == 0 ? 0 : upcoming.length), cardBg),
@@ -281,72 +281,9 @@ class _AsMinhasConsultasState extends State<AsMinhasConsultas> {
           ),
         ),
       ),
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(28),
-              boxShadow: [
-                BoxShadow(color: const Color(0x0F000000), blurRadius: 12, offset: const Offset(0, 6)),
-              ],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // item 0 - Início
-                _navItem(icon: Icons.home_outlined, label: 'Início', index: 0),
-                // item 1 - Consultas (atual)
-                _navItem(icon: Icons.calendar_month_outlined, label: 'Consultas', index: 1),
-                // item 2 - Planos
-                _navItem(icon: Icons.folder_open_outlined, label: 'Planos', index: 2),
-                // item 3 - Perfil
-                _navItem(icon: Icons.person_outline, label: 'Perfil', index: 3),
-              ],
-            ),
-          ),
-        ),
-      ),
+      bottomNavigationBar: AppBottomNav(selectedIndex: _currentIndex),
     );
   }
 
-  // helper para construir cada item da barra
-  Widget _navItem({required IconData icon, required String label, required int index}) {
-    final primaryGold = const Color(0xFFA87B05);
-    final isSelected = _currentIndex == index;
-    return Expanded(
-      child: GestureDetector(
-        onTap: () {
-          setState(() => _currentIndex = index);
-          // navegação opcional por índice (ajuste rotas conforme precisa)
-          if (!mounted) return;
-          if (index == 0) Navigator.pushReplacementNamed(context, '/menu');
-          if (index == 1) Navigator.pushReplacementNamed(context, '/asminhasconsultas');
-          if (index == 2) Navigator.pushReplacementNamed(context, '/plano_tratamento');
-          if (index == 3) Navigator.pushReplacementNamed(context, '/perfil');
-        },
-        behavior: HitTestBehavior.opaque,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: isSelected ? const Color(0xFFF3EDE7) : Colors.transparent,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Icon(icon, size: 20, color: isSelected ? primaryGold : Colors.black54),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              label,
-              style: TextStyle(fontSize: 12, color: isSelected ? primaryGold : Colors.black54),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // nothing extra here — bottom nav provided by AppBottomNav
 }

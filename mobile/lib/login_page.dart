@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
 
-    print("App started running");
+    debugPrint("App started running");
   
 
   
@@ -184,10 +184,10 @@ class _LoginPageState extends State<LoginPage> {
                                   }
 
                                   setState(() => _isLoading = true);
-                                  print('Login pressed: email=$email');
+                                  debugPrint('Login pressed: email=$email');
                                   try {
                                     final resp = await ApiService.login(email, senha);
-                                    print('Login response: $resp');
+                                    debugPrint('Login response: $resp');
                                     final access = resp['accessToken'] as String? ?? resp['token'] as String?;
                                     if (access != null) {
                                       final prefs = await SharedPreferences.getInstance();
