@@ -4,6 +4,7 @@ import 'login_page.dart';
 import 'menu.dart';
 import 'marcar_consulta.dart';
 import 'asminhasconsultas.dart';
+import 'planotratamento.dart';
 
 Future<void> main() async {
 	WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +33,8 @@ class MyApp extends StatelessWidget {
     '/login': (context) => const LoginPage(),
     '/menu': (context) => const Menu(),
     '/Consultas': (context) => const MarcarConsulta(),
-    '/asminhasconsultas': (context) => const AsMinhasConsultas(),
+		'/asminhasconsultas': (context) => const AsMinhasConsultas(),
+		'/plano_tratamento': (context) => const PlanoTratamentoPage(),
   },
 		);
 	}
