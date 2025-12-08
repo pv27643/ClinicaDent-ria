@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'widgets/declaracao/listadeclaracao.dart';
 
 class Declaracao extends StatefulWidget {
   const Declaracao({super.key});
@@ -96,9 +97,13 @@ class _Declaracao extends State<Declaracao> {
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('Mês Atual', style: TextStyle(color: Colors.black54)),
-                    const SizedBox(height: 8),
+                  children: const [
+                    Text('Mês Atual', style: TextStyle(color: Colors.black54)),
+                    SizedBox(height: 8),
+                    SizedBox(height: 8),
+
+                    // Lista de declarações
+                    ListaDeclaracao(),
                   ],
                 ),
               ),
