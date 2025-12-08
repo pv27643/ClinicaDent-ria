@@ -17,6 +17,26 @@ exports.getFuture = async () => {
 };
 
 exports.create = async (data) => {
-  data.status = 'pendente';
-  return { status: data.status };
+  const {
+    id,
+    id_medico,
+    hora,
+    tipo_de_marcacao,
+    status = 'pendente',
+    data_consulta
+  } = data;
+
+  // Query SQL para inserir com RETURNING
+  const query = `
+    INSERT INTO consulta (id, id_medico, hora, tipo_de_marcacao, status, data_consulta)
+    VALUES ($1, $2, $3, $4, $5, $6)
+    RETURNING *
+  `;
+
+  const result = await sequelize.query(query, {
+    bind: [id, id_medico, hora, tipo_de_marcacao, status, data_consulta],
+    type: QueryTypes.INSERT
+  });
+
+  return result[0][0]; // Retorna o primeiro registro inserido
 };

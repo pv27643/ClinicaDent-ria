@@ -9,7 +9,6 @@ class AsMinhasConsultas extends StatefulWidget {
 }
 
 class _AsMinhasConsultasState extends State<AsMinhasConsultas> {
-  int _currentIndex = 1;
   int _selectedTab = 0; // 0 = Futuras, 1 = Passadas
 
   // Dados de exemplo organizados por secção (upcoming / history)
@@ -281,9 +280,7 @@ class _AsMinhasConsultasState extends State<AsMinhasConsultas> {
           ),
         ),
       ),
-      bottomNavigationBar: AppBottomNav(selectedIndex: _currentIndex),
+      bottomNavigationBar: AppBottomNav(selectedIndex: 1),
     );
   }
-
-  // nothing extra here — bottom nav provided by AppBottomNav
 }

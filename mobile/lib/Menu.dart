@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'marcar_consulta.dart';
-import 'declaracao.dart';
 import 'widgets/app_bottom_nav.dart';
 import 'widgets/grid_menu.dart';
 import 'widgets/atalhosCard.dart';

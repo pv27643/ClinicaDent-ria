@@ -26,4 +26,16 @@ class ApiService {
     throw Exception('Erro ${res.statusCode}: ${res.body}');
   }
 
+  static Future<Map<String, dynamic>> createAppointment(Map<String, dynamic> params) async {
+    final res = await http.post(
+      _uri('/appointments/create'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(params),
+    );
+    if (res.statusCode >= 200 && res.statusCode < 300) {
+      return jsonDecode(res.body) as Map<String, dynamic>;
+    }
+    throw Exception('Erro ${res.statusCode}: ${res.body}');
+  }
+
 }
