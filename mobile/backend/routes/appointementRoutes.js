@@ -63,8 +63,7 @@ router.post('/create', async (req, res) => {
 			});
 		}
 
-		// Preparar dados para inserção (id pode ser null). 'hora' já normalizada em horaStr.
-		// Mapear id_medico para tipo_de_marcacao (especialidade) quando não fornecido
+		// associar id_medico para tipo_de_marcacao (especialidade)
 		const medicoId = parseInt(id_medico, 10) || null;
 		const especialidadeMap = {
 			1: 'Implantologia',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+//DETALHES
 
 class PlanDetails extends StatelessWidget {
   final Color primaryGold;
@@ -90,7 +91,7 @@ class PlanDetails extends StatelessWidget {
   Widget _pill(String text, Color color, {bool isActive = false}) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-      decoration: BoxDecoration(color: isActive ? const Color(0xFFF3EDE7) : Colors.grey.withOpacity(0.1), borderRadius: BorderRadius.circular(20)),
+      decoration: BoxDecoration(color: isActive ? const Color(0xFFF3EDE7) : Colors.grey.withAlpha((0.1 * 255).round()), borderRadius: BorderRadius.circular(20)),
       child: Text(text, style: TextStyle(color: isActive ? color : Colors.black54, fontSize: 12)),
     );
   }

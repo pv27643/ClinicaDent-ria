@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+//botoes entrar e recuperar palavra passe
 
-/// Reusable Recover Password button for the login form.
+
+///Recover Password button
 class RecoverPasswordButton extends StatelessWidget {
   final Color backgroundColor;
   final Color foregroundColor;
@@ -36,6 +38,7 @@ class RecoverPasswordButton extends StatelessWidget {
     );
   }
 }
+
 
 ///BOTAO ENTRAR
 class AuthActions extends StatelessWidget {

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'widgets/login/login_widgets.dart'; // exportar fields, buttons, logotipo, form
 
-
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -39,9 +38,10 @@ class _LoginPageState extends State<LoginPage> {
                         Logotipo(titleText: titleText, titleStyle: titleStyle),
                   ],
                 ),
-
                 const SizedBox(height: 24),
 
+
+                //lógica de login
                 LoginForm(bg: bg, cardBg: cardBg, loginColor: primaryGold, recoverColor: beige),
                 const SizedBox(height: 28),
 

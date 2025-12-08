@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+//FILTRAR
 
 class FilterChips extends StatelessWidget {
   final bool showActive;
@@ -26,7 +27,7 @@ class FilterChips extends StatelessWidget {
         decoration: BoxDecoration(
           color: selected ? const Color(0xFFF3EDE7) : Colors.white,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Colors.grey.withOpacity(0.2)),
+          border: Border.all(color: Colors.grey.withAlpha((0.2 * 255).round())),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -36,7 +37,7 @@ class FilterChips extends StatelessWidget {
               const SizedBox(width: 8),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(color: primaryGold.withOpacity(0.12), borderRadius: BorderRadius.circular(8)),
+                decoration: BoxDecoration(color: primaryGold.withAlpha((0.12 * 255).round()), borderRadius: BorderRadius.circular(8)),
                 child: const Text('Ativo', style: TextStyle(fontSize: 12)),
               ),
             ]

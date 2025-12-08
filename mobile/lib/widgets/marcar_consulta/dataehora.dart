@@ -65,21 +65,7 @@ class _DataHoraWidgetState extends State<DataHoraWidget> {
     return days;
   }
 
-  List<Map<String, String>> _generateNextSevenDays() {
-    List<Map<String, String>> days = [];
-    final now = DateTime.now();
-
-    for (int i = 0; i < 7; i++) {
-      final date = now.add(Duration(days: i));
-      days.add({
-        'weekday': DateFormat.E('pt_PT').format(date),
-        'day': date.day.toString(),
-        'month': DateFormat.MMM('pt_PT').format(date),
-        'fullDate': date.toIso8601String(),
-      });
-    }
-    return days;
-  }
+  // _generateNextSevenDays was removed because it was not referenced.
 
   List<Map<String, String>> _generateMonthDays(DateTime month) {
     final first = DateTime(month.year, month.month, 1);
@@ -453,7 +439,7 @@ class _DataHoraWidgetState extends State<DataHoraWidget> {
                     color: isSelected
                         ? const Color(0xFFD7B77D)
                         : isToday
-                            ? const Color(0xFFD7B77D).withOpacity(0.5)
+                            ? const Color(0xFFD7B77D).withAlpha((0.5 * 255).round())
                             : Colors.transparent,
                     width: isSelected ? 2 : 1,
                   ),

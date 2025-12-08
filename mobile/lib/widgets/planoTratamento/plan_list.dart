@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+//REGISTOS
 
 class PlanList extends StatelessWidget {
   final Color primaryGold;
@@ -68,7 +69,7 @@ class PlanList extends StatelessWidget {
                     const SizedBox(width: 6),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(color: Colors.grey.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
+                      decoration: BoxDecoration(color: Colors.grey.withAlpha((0.1 * 255).round()), borderRadius: BorderRadius.circular(8)),
                       child: Text(sessions, style: const TextStyle(fontSize: 12)),
                     ),
                   ],
@@ -83,7 +84,7 @@ class PlanList extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                 decoration: BoxDecoration(
-                  color: isActive ? const Color(0xFFEFF7EE) : Colors.grey.withOpacity(0.12),
+                  color: isActive ? const Color(0xFFEFF7EE) : Colors.grey.withAlpha((0.12 * 255).round()),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(status, style: TextStyle(color: isActive ? const Color(0xFF1E7A31) : Colors.black54, fontSize: 12)),

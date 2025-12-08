@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+//dependentes e titular
+
 
 class DependentesWidget extends StatelessWidget {
   final Color? primaryGold;

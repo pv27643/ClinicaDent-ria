@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'marcar_consulta.dart';
 import 'widgets/app_bottom_nav.dart';
-import 'widgets/menu/grid_menu.dart';
+import 'widgets/grid_menu.dart';
 import 'widgets/menu/atalhosCard.dart';
 
 class Menu extends StatefulWidget {

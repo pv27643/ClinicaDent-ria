@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+
+//Entidade e Seguro
 class EntidadeSeguro extends StatelessWidget {
   final String? selectedInsurance;
   final ValueChanged<String> onInsuranceSelected;
@@ -76,3 +78,6 @@ class EntidadeSeguro extends StatelessWidget {
     );
   }
 }
+
+
+//selcted button

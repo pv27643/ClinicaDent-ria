@@ -6,6 +6,9 @@ import '../../services/api_service.dart';
 import 'login_fields.dart';
 import 'buttons.dart';
 
+
+//lógica de código do login
+
 class LoginForm extends StatefulWidget {
   final Color bg;
   final Color cardBg;
@@ -29,6 +32,7 @@ class _LoginFormState extends State<LoginForm> {
   final _passwordController = TextEditingController();
   bool _isLoading = false;
 
+//dispose limpa os dados
   @override
   void dispose() {
     _emailController.dispose();
@@ -36,6 +40,7 @@ class _LoginFormState extends State<LoginForm> {
     super.dispose();
   }
 
+//email textfield é necessário não estar nulo para o login, ou envia a mensagem abaixo
   Future<void> _handleLogin() async {
     final email = _emailController.text.trim();
     final senha = _passwordController.text;
@@ -45,8 +50,10 @@ class _LoginFormState extends State<LoginForm> {
       return;
     }
 
+    //validação do email
     setState(() => _isLoading = true);
     debugPrint('Login pressed: email=$email');
+
     try {
       final resp = await ApiService.login(email, senha);
       debugPrint('Login response: $resp');
@@ -56,18 +63,29 @@ class _LoginFormState extends State<LoginForm> {
       if (access != null) {
         await prefs.setString('auth_token', access);
       }
+
+
+      //Se user não for nulo, extrai user['id']
       if (user != null) {
         final uidDynamic = user['id'];
+
+            //converte-o de forma segura para um int 
         final int? uidInt = uidDynamic is int
             ? uidDynamic
             : (uidDynamic is String
                 ? int.tryParse(uidDynamic)
                 : (uidDynamic is num ? uidDynamic.toInt() : null));
+                
+                
+        //se existir, grava em SharedPreferences com a chave user_email
         if (uidInt != null) await prefs.setInt('user_id', uidInt);
-
         final uemail = user['email'] as String?;
+
         if (uemail != null) await prefs.setString('user_email', uemail);
       }
+      
+      
+      //depois de guardar os dados muda a rota atual para menu
       if (!context.mounted) return;
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Menu()));
     } catch (err) {
@@ -79,6 +97,10 @@ class _LoginFormState extends State<LoginForm> {
     }
   }
 
+
+
+
+//layout iniciar sessão
   @override
   Widget build(BuildContext context) {
     return Container(
